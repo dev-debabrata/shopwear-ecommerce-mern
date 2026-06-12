@@ -10,6 +10,7 @@ import star from "../assets/star_icon.png";
 import dullStar from "../assets/star_dull_icon.png";
 import Title from "../components/Title";
 import Button from "../components/Button";
+// import LoadingSpinner from "../components/LoadingSpinner";
 
 const ProductPage = () => {
   const { _id } = useParams();
@@ -85,6 +86,7 @@ const ProductPage = () => {
   if (!product) {
     return (
       <Container>
+        {/* <LoadingSpinner /> */}
         <div className="py-20 text-center">Loading...</div>
       </Container>
     );

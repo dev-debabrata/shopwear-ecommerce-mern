@@ -125,7 +125,7 @@ export const updateProduct = async (req, res) => {
     }
 
     // Start with existing images, replace slots that have new uploads
-    const images = [...(existingProduct.images || [])];
+    const images = [...(existingProduct.image || [])];
 
     const fileSlots = [
       req.files?.image1?.[0],
@@ -136,14 +136,23 @@ export const updateProduct = async (req, res) => {
 
     for (let i = 0; i < fileSlots.length; i++) {
       const file = fileSlots[i];
+
       if (file) {
-        const result = await cloudinary.uploader.upload(file.path, {
-          folder: "products",
-        });
-        fs.unlinkSync(file.path);
-        images[i] = result.secure_url; // replace that slot
+        const imageUrl = await uploadToCloudinary(file.buffer);
+        images[i] = imageUrl;
       }
     }
+
+    // for (let i = 0; i < fileSlots.length; i++) {
+    //   const file = fileSlots[i];
+    //   if (file) {
+    //     const result = await cloudinary.uploader.upload(file.path, {
+    //       folder: "products",
+    //     });
+    //     fs.unlinkSync(file.path);
+    //     images[i] = result.secure_url; // replace that slot
+    //   }
+    // }
 
     const product = await Product.findByIdAndUpdate(
       req.params.id,
@@ -155,7 +164,7 @@ export const updateProduct = async (req, res) => {
         subCategory,
         bestSeller: bestSeller === "true",
         sizes: JSON.parse(sizes || "[]"),
-        images,
+        image: images,
       },
       { returnDocument: "after" },
     );

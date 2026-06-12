@@ -255,10 +255,9 @@ const CollectionsPage = () => {
                     </button>
                     <img
                       src={
-                        product.images?.[0] ||
-                        product.image1 ||
-                        product.image ||
-                        "/images/placeholder.png"
+                        Array.isArray(product?.image)
+                          ? product.image[0]
+                          : "/images/placeholder.png"
                       }
                       className="transition ease-in-out hover:scale-110"
                       alt={product.name}

@@ -55,13 +55,18 @@ const CartPage = () => {
               const currentName = latestProduct?.name || item.name || "Product";
 
               const imageUrl =
-                latestProduct?.images?.[0] ||
-                latestProduct?.image1 ||
-                latestProduct?.image ||
-                item.images?.[0] ||
-                item.image1 ||
-                item.image ||
+                latestProduct?.image?.[0] ||
+                item?.image?.[0] ||
                 "/images/placeholder.png";
+
+              // const imageUrl =
+              //   latestProduct?.images?.[0] ||
+              //   latestProduct?.image1 ||
+              //   latestProduct?.image ||
+              //   item.images?.[0] ||
+              //   item.image1 ||
+              //   item.image ||
+              //   "/images/placeholder.png";
 
               return (
                 <div

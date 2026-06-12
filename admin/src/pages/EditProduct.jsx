@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { assets } from "../assets/assets";
@@ -40,7 +40,7 @@ const EditProduct = ({ token }) => {
         setSubcategory(product.subCategory || "Topwear");
         setBestseller(!!product.bestSeller);
         setSizes(product.sizes || []);
-        setExistingImages(product.images || []);
+        setExistingImages(product.image || []);
       } catch (error) {
         console.error(error);
         toast.error("Failed to load product");
@@ -251,9 +251,8 @@ const EditProduct = ({ token }) => {
             {["S", "M", "L", "XL", "XXL"].map((size) => (
               <div key={size} onClick={() => toggleSize(size)}>
                 <p
-                  className={`${
-                    sizes.includes(size) ? "bg-pink-100" : "bg-pink-200"
-                  } px-3 py-1 cursor-pointer`}
+                  className={`${sizes.includes(size) ? "bg-pink-100" : "bg-pink-200"
+                    } px-3 py-1 cursor-pointer`}
                 >
                   {size}
                 </p>
