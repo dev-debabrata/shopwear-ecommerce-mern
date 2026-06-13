@@ -38,7 +38,7 @@ const productSchema = new mongoose.Schema(
       required: true,
     },
 
-    bestseller: {
+    bestSeller: {
       type: Boolean,
       default: false,
     },

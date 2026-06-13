@@ -9,7 +9,7 @@ export const createProduct = async (req, res) => {
       price,
       category,
       subCategory,
-      bestseller,
+      bestSeller,
       sizes,
     } = req.body;
 
@@ -37,7 +37,7 @@ export const createProduct = async (req, res) => {
       price: Number(price),
       category,
       subCategory,
-      bestseller: bestseller === "true",
+      bestSeller: bestSeller === "true",
       sizes: JSON.parse(sizes),
       image: imageUrls,
     });

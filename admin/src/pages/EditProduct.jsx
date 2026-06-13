@@ -15,7 +15,7 @@ const EditProduct = ({ token }) => {
   const [price, setPrice] = useState("");
   const [category, setCategory] = useState("Men");
   const [subCategory, setSubcategory] = useState("Topwear");
-  const [bestseller, setBestseller] = useState(false);
+  const [bestSeller, setBestseller] = useState(false);
   const [sizes, setSizes] = useState([]);
 
   const [existingImages, setExistingImages] = useState([]); // URLs from server
@@ -75,7 +75,7 @@ const EditProduct = ({ token }) => {
       formData.append("price", price);
       formData.append("category", category);
       formData.append("subCategory", subCategory);
-      formData.append("bestSeller", bestseller);
+      formData.append("bestSeller", bestSeller);
       formData.append("sizes", JSON.stringify(sizes));
 
       const { data } = await axios.put(
@@ -265,7 +265,7 @@ const EditProduct = ({ token }) => {
           <input
             type="checkbox"
             id="bestseller"
-            checked={bestseller}
+            checked={bestSeller}
             onChange={() => setBestseller((prev) => !prev)}
           />
           <label htmlFor="bestseller">Add to bestseller</label>
