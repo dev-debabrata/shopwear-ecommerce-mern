@@ -7,59 +7,16 @@ import Container from "../layout/Container";
 import Title from "../components/Title";
 import Input from "../components/Input";
 import PaymentMethods from "../components/PaymentMethods";
+import { toast } from "react-toastify";
+import { deliveryFields } from "../data/checkoutData";
+import { useNavigate } from "react-router-dom";
 
 
-const deliveryFields = [
-  {
-    placeholder: "First Name",
-    fieldName: "firstName",
-    isFullWidth: false,
-    isRequired: true,
-  },
-  {
-    placeholder: "Last Name",
-    fieldName: "lastName",
-    isFullWidth: false,
-  },
-  {
-    placeholder: "Email Address",
-    fieldName: "emailAddress",
-    isFullWidth: true,
-  },
-  {
-    placeholder: "Street",
-    fieldName: "street",
-    isFullWidth: true,
-  },
-  {
-    placeholder: "City",
-    fieldName: "city",
-    isFullWidth: false,
-  },
-  {
-    placeholder: "State",
-    fieldName: "state",
-    isFullWidth: false,
-  },
-  {
-    placeholder: "Zip Code",
-    fieldName: "zipCode",
-    isFullWidth: false,
-  },
-  {
-    placeholder: "Country",
-    fieldName: "country",
-    isFullWidth: false,
-  },
-  {
-    placeholder: "Mobile",
-    fieldName: "mobile",
-    isFullWidth: true,
-  },
-];
 
 const Checkout = () => {
   const { subTotal } = useAppContext();
+
+  const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
     firstName: "",
@@ -73,9 +30,39 @@ const Checkout = () => {
     mobile: "",
   });
 
+
+  const handlePlaceOrder = (e) => {
+    e.preventDefault();
+
+    toast.success("Order placed successfully");
+    navigate("/orders");
+  };
+
+  // const handlePlaceOrder = (e) => {
+  //   e.preventDefault();
+
+  //   const emptyField = deliveryFields.find(
+  //     (field) => field.isRequired && !formData[field.fieldName].trim()
+  //   );
+
+  //   if (emptyField) {
+  //     toast.error(`${emptyField.placeholder} is required`);
+  //     return;
+  //   }
+
+  //   toast.success("Order placed successfully");
+
+  //   setTimeout(() => {
+  //     navigate("/orders");
+  //   }, 1000);
+  // };
+
+
+
+
   return (
     <Container>
-      <div
+      <form onSubmit={handlePlaceOrder}
         className="border-t border-gray-200 
       flex flex-col justify-between sm:flex-row min-h-[80vh] pt-5 sm:pt-14 gap-4"
       >
@@ -140,7 +127,7 @@ const Checkout = () => {
             </div>
           </div>
         </div>
-      </div>
+      </form>
     </Container>
   );
 };
