@@ -86,7 +86,7 @@ const CartPage = () => {
                       </p>
 
                       <div className="flex items-center mt-2 gap-5">
-                        <p>${Number(currentPrice).toFixed(2)}</p>
+                        <p>₹{Number(currentPrice).toFixed(2)}</p>
 
                         <p className="bg-slate-50 border border-gray-200 px-2 sm:px-3 sm:py-1">
                           {item.size}

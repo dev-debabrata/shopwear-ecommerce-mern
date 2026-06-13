@@ -10,6 +10,7 @@ import Button from "../components/Button";
 import Input from "../components/Input";
 // import LoadingSpinner from "../components/LoadingSpinner";
 import Loading from "../components/Loading";
+import ProductItem from "../components/ProductItem";
 
 const CollectionsPage = () => {
   const [products, setProducts] = useState([]);
@@ -276,47 +277,17 @@ const CollectionsPage = () => {
           ) : (
             <div className="grid grid-cols-2 gap-4 gap-y-6 md:grid-cols-3 lg:grid-cols-4">
               {filteredProducts.map((product) => (
-                <Link to={`/products/${product._id}`} key={product._id}>
-                  {/* <div className="flex flex-col cursor-pointer overflow-hidden"> */}
-                  <div className="relative flex flex-col cursor-pointer overflow-hidden">
-
-                    <button
-                      onClick={(e) => handleWishlist(e, product)}
-                      className="absolute top-3 right-3 z-10 bg-white rounded-full p-2 shadow-md"
-                    >
-                      <Heart
-                        size={20}
-                        className={
-                          isInWishlist(product._id)
-                            ? "fill-red-500 text-red-500"
-                            : "text-gray-600"
-                        }
-                      />
-                    </button>
-                    <img
-                      src={
-                        Array.isArray(product?.image)
-                          ? product.image[0]
-                          : "/images/placeholder.png"
-                      }
-                      className="transition ease-in-out hover:scale-110"
-                      alt={product.name}
-                    />
-                    {/* <img
-                      src={product.images?.[0]}
-                      className="transition ease-in-out hover:scale-110"
-                      alt={product.name}
-                    /> */}
-
-                    <p className="text-sm pt-3 pb-1 text-[#374151]">
-                      {product.name}
-                    </p>
-
-                    <p className="text-sm font-medium text-[#374151]">
-                      ${Number(product.price || 0).toFixed(2)}
-                    </p>
-                  </div>
-                </Link>
+                <ProductItem
+                  key={product._id}
+                  {...product}
+                  showWishlist={true}
+                  isWishlisted={isInWishlist(product._id)}
+                  onWishlist={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    handleWishlist(e, product);
+                  }}
+                />
               ))}
             </div>
           )}

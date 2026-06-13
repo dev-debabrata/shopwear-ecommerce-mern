@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import ReactMarkdown from "react-markdown";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { axiosInstance } from "../utils/axios";
@@ -9,10 +9,10 @@ import { useAppContext } from "../context/AppContext";
 import Container from "../layout/Container";
 import star from "../assets/star_icon.png";
 import dullStar from "../assets/star_dull_icon.png";
-import Title from "../components/Title";
 import Button from "../components/Button";
 import { Heart } from "lucide-react";
 import Loading from "../components/Loading";
+import RelatedProducts from "../components/RelatedProducts";
 
 const ProductPage = () => {
   const { _id } = useParams();
@@ -25,7 +25,6 @@ const ProductPage = () => {
   const {
     cartItems,
     setCartItems,
-    products,
     user,
     addToWishlist,
     isInWishlist,
@@ -103,9 +102,9 @@ const ProductPage = () => {
         prevItems.map((item) =>
           item._id === productId && item.size === selectedSize
             ? {
-                ...item,
-                quantity: item.quantity + 1,
-              }
+              ...item,
+              quantity: item.quantity + 1,
+            }
             : item,
         ),
       );
@@ -166,11 +165,10 @@ const ProductPage = () => {
                       src={image}
                       alt={product.name}
                       onClick={() => setSelectedImageIndex(index)}
-                      className={`w-[24%] sm:w-full sm:mb-3 flex-shrink-0 cursor-pointer ${
-                        selectedImageIndex === index
-                          ? "border-2 border-gray-600 p-2"
-                          : ""
-                      }`}
+                      className={`w-[24%] sm:w-full sm:mb-3 flex-shrink-0 cursor-pointer ${selectedImageIndex === index
+                        ? "border-2 border-gray-600 p-2"
+                        : ""
+                        }`}
                     />
                   ))}
                 </div>
@@ -225,11 +223,10 @@ const ProductPage = () => {
                         key={size}
                         onClick={() => setSelectedSize(size)}
                         size="tiny"
-                        className={`${
-                          selectedSize === size
-                            ? "border-orange-500"
-                            : "border-gray-200"
-                        } text-black`}
+                        className={`${selectedSize === size
+                          ? "border-orange-500"
+                          : "border-gray-200"
+                          } text-black`}
                       >
                         {size}
                       </Button>
@@ -302,7 +299,13 @@ const ProductPage = () => {
           </div>
         )}
 
-        <div className="mt-20">
+        <RelatedProducts
+          productId={product?._id}
+          category={product?.category}
+          subCategory={product?.subCategory}
+        />
+
+        {/* <div className="mt-20">
           <div className="my-24">
             <div className="text-3xl text-center py-2">
               <Title text1="RELATED" text2="PRODUCTS" />
@@ -329,7 +332,7 @@ const ProductPage = () => {
                   .map((relatedProduct) => (
                     <Link
                       key={relatedProduct._id}
-                      to={`/product/${relatedProduct._id}`}
+                      to={`/products/${relatedProduct._id}`}
                       className="overflow-hidden"
                     >
                       <img
@@ -345,7 +348,7 @@ const ProductPage = () => {
               </div>
             )}
           </div>
-        </div>
+        </div> */}
       </div>
     </Container>
   );

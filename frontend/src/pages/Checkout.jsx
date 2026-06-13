@@ -44,6 +44,12 @@ const Checkout = () => {
 
   const handleRazorpayPayment = async () => {
     try {
+      if (!/^[6-9]\d{9}$/.test(formData.mobile)) {
+        toast.error("Please enter a valid Indian mobile number");
+        return;
+      }
+
+
       const totalAmount = subTotal + shippingFee;
 
       const data = await createRazorpayOrder(totalAmount);
@@ -52,7 +58,7 @@ const Checkout = () => {
         key: data.key,
         amount: data.order.amount,
         currency: data.order.currency,
-        name: "Fashion Store",
+        name: "ShopWear Store",
         description: "Order Payment",
         order_id: data.order.id,
 
@@ -64,7 +70,7 @@ const Checkout = () => {
         prefill: {
           name: `${formData.firstName} ${formData.lastName}`,
           email: formData.emailAddress,
-          contact: formData.mobile,
+          contact: `91${formData.mobile}`,
         },
 
         theme: {
@@ -75,7 +81,8 @@ const Checkout = () => {
       const razorpay = new window.Razorpay(options);
       razorpay.open();
     } catch (error) {
-      toast.error("Payment Failed");
+      console.log("Payment error:", error);
+      toast.error(error?.response?.data?.message || "Payment Failed");
     }
   };
 
@@ -144,17 +151,17 @@ const Checkout = () => {
               <div className="mt-2 flex flex-col text-sm gap-2">
                 <div className="flex justify-between text-lg font-medium">
                   <p>Sub Total</p>
-                  <p>$ {subTotal.toFixed(2)}</p>
+                  <p>₹ {subTotal.toFixed(2)}</p>
                 </div>
                 <hr className="border-gray-200" />
                 <div className="flex justify-between text-lg font-medium">
                   <p>Shipping Fee</p>
-                  <p>$ {shippingFee.toFixed(2)}</p>
+                  <p>₹ {shippingFee.toFixed(2)}</p>
                 </div>
                 <hr className="border-gray-200" />
                 <div className="flex justify-between text-2xl font-semibold">
                   <p>Total Amount</p>
-                  <p>$ {(subTotal + shippingFee).toFixed(2)}</p>
+                  <p>₹ {(subTotal + shippingFee).toFixed(2)}</p>
                 </div>
               </div>
             </div>

@@ -21,21 +21,21 @@ const CartTotal = () => {
         <div className="flex flex-col gap-2 text-sm mt-2">
           <div className="flex justify-between text-lg font-medium">
             <p>Sub Total</p>
-            <p>${Number(subTotal).toFixed(2)}</p>
+            <p>₹{Number(subTotal).toFixed(2)}</p>
           </div>
 
           <hr className="border-gray-200" />
 
           <div className="flex justify-between text-lg font-medium">
             <p>Shipping Fee</p>
-            <p>${cartItems.length > 0 ? shippingFee.toFixed(2) : "0.00"}</p>
+            <p>₹{cartItems.length > 0 ? shippingFee.toFixed(2) : "0.00"}</p>
           </div>
 
           <hr className="border-gray-200" />
 
           <div className="flex justify-between text-2xl font-semibold">
             <p>Total Amount</p>
-            <p>${totalAmount.toFixed(2)}</p>
+            <p>₹{totalAmount.toFixed(2)}</p>
           </div>
 
           {cartItems.length > 0 && (
