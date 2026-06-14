@@ -49,7 +49,7 @@ const ProfilePage = () => {
                         </div>
                     </div>
 
-                    <Address />
+                    <Address mode="profile" />
                 </div>
             </div>
         </Container>
