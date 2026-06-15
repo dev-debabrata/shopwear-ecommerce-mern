@@ -20,6 +20,9 @@ import WishlistPage from "./pages/WishlistPage";
 import { useAppContext } from "./context/AppContext";
 import ProfilePage from "./pages/ProfilePage";
 import OrderSuccessPage from "./pages/OrderSuccessPage";
+import CareersPage from "./pages/CareersPage";
+import FAQPage from "./pages/FAQPage";
+import ReturnsRefundsPage from "./pages/ReturnsRefundsPage";
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -52,10 +55,13 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
+        <Route path="/careers" element={<CareersPage />} />
         <Route path="/collection" element={<CollectionsPage />} />
         <Route path="/products/:_id" element={<ProductPage />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/reset-password/:token" element={<ResetPassword />} />
+        <Route path="/faq" element={<FAQPage />} />
+        <Route path="/returns-refunds" element={<ReturnsRefundsPage />} />
 
         {/* Auth routes — redirect to home if already logged in */}
         <Route

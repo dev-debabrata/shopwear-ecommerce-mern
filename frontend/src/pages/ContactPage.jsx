@@ -1,8 +1,17 @@
+import { useNavigate } from "react-router-dom";
+
 import Title from "../components/Title";
 import Container from "../layout/Container";
 import Button from "../components/Button";
 
 const ContactPage = () => {
+
+
+
+  const navigate = useNavigate();
+
+
+
   return (
     <Container>
       <div className="text-2xl pt-10 border-t-[0.063rem] text-center border-gray-200">
@@ -48,10 +57,18 @@ const ContactPage = () => {
           </button> */}
           <Button
             size="medium"
+            onClick={() => navigate("/careers")}
             className="w-[9.1rem] bg-transparent border border-black text-black transition-all duration-500 hover:bg-gray-800 hover:text-white"
           >
             Explore Jobs
           </Button>
+
+          {/* <Button
+            size="medium"
+            className="w-[9.1rem] bg-transparent border border-black text-black transition-all duration-500 hover:bg-gray-800 hover:text-white"
+          >
+            Explore Jobs
+          </Button> */}
         </div>
       </div>
 
