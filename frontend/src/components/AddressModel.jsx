@@ -37,34 +37,35 @@ const AddressModal = ({
           {editingIndex ? "Edit Address" : "Add Address"}
         </h2>
 
-        <form onSubmit={onSave}>
-          <AddressForm formData={formData} setFormData={setFormData} />
+        {/* <form onSubmit={onSave}> */}
+        <AddressForm formData={formData} setFormData={setFormData} />
 
-          <div className="mt-5 flex justify-end gap-3">
-            <Button
-              type="transparent"
-              size="small"
-              buttonType="button"
-              onClick={onClose}
-              disabled={saving}
-            >
-              Cancel
-            </Button>
+        <div className="mt-5 flex justify-end gap-3">
+          <Button
+            type="transparent"
+            size="small"
+            buttonType="button"
+            onClick={onClose}
+            disabled={saving}
+          >
+            Cancel
+          </Button>
 
-            <Button
-              buttonType="submit"
-              type="primary"
-              size="small"
-              disabled={saving}
-            >
-              {saving
-                ? "Saving..."
-                : editingIndex
-                  ? "Update Address"
-                  : "Save Address"}
-            </Button>
-          </div>
-        </form>
+          <Button
+            buttonType="submit"
+            type="primary"
+            size="small"
+            onClick={onSave}
+            disabled={saving}
+          >
+            {saving
+              ? "Saving..."
+              : editingIndex
+                ? "Update Address"
+                : "Save Address"}
+          </Button>
+        </div>
+        {/* </form> */}
       </div>
     </div>
   );
