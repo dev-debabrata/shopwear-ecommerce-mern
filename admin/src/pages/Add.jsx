@@ -13,6 +13,7 @@ const Add = ({ token }) => {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
+  const [discount, setDiscount] = useState("");
   const [category, setCategory] = useState("Men");
   const [subCategory, setSubcategory] = useState("Topwear");
   const [bestSeller, setBestSeller] = useState(false);
@@ -32,6 +33,7 @@ const Add = ({ token }) => {
       formData.append("name", name);
       formData.append("description", description);
       formData.append("price", price);
+      formData.append("discount", discount);
       formData.append("category", category);
       formData.append("subCategory", subCategory);
       formData.append("bestSeller", bestSeller);
@@ -52,6 +54,7 @@ const Add = ({ token }) => {
       setName("");
       setDescription("");
       setPrice("");
+      setDiscount("");
       setCategory("Men");
       setSubcategory("Topwear");
       setBestSeller(false);
@@ -183,17 +186,32 @@ const Add = ({ token }) => {
             </select>
           </div>
 
-          <div>
+          <div className="w-35">
             <p className="mb-2 font-medium text-sm">Product Price</p>
 
             <input
               name="price"
               onChange={(e) => setPrice(e.target.value)}
               value={price}
-              className="w-full max-w-[500px] px-3 py-2"
+              className="w-full px-3 py-2"
               type="number"
-              placeholder="25SR"
+              placeholder="Price"
               required
+            />
+          </div>
+
+          <div className="w-35">
+            <p className="mb-2 font-medium text-sm">Discount</p>
+
+            <input
+              name="discount"
+              onChange={(e) => setDiscount(e.target.value)}
+              value={discount}
+              className="w-full px-3 py-2"
+              type="number"
+              placeholder="Discount (%)"
+              min="0"
+              max="100"
             />
           </div>
         </div>
