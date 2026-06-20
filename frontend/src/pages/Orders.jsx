@@ -133,7 +133,67 @@ const Orders = () => {
                     <h3 className="mb-4 font-semibold uppercase">Products</h3>
 
                     <div className="flex flex-col gap-5">
-                      {items.map((item, index) => (
+                      {items.map((item, index) => {
+                        const originalPrice = Number(item.price || 0);
+                        const discount = Number(item.discount || 0);
+
+                        const discountPrice =
+                          originalPrice - (originalPrice * discount) / 100;
+
+                        return (
+                          <Link
+                            key={`${order._id}-${item.productId}-${index}`}
+                            to={`/products/${item.productId}`}
+                            className="block hover:bg-gray-50 transition rounded-md"
+                          >
+                            <div
+                              key={`${order._id}-${item.productId}-${index}`}
+                              className="flex gap-4 border-b border-gray-100 pb-5 last:border-b-0 last:pb-0"
+                            >
+                              <img
+                                src={item.image || "/images/placeholder.png"}
+                                className="h-28 w-20 object-cover sm:h-36 sm:w-28"
+                                alt={item.name}
+                              />
+
+                              <div className="flex flex-1 flex-col gap-2">
+                                <p className="font-medium text-sm sm:text-base">
+                                  {item.name}
+                                </p>
+
+                                <p className="text-sm text-gray-600">
+                                  Qty: {item.quantity}
+                                </p>
+
+                                {item.size && (
+                                  <p className="text-sm text-gray-600">
+                                    Size: {item.size}
+                                  </p>
+                                )}
+
+                                <div className="flex items-center gap-2 flex-wrap">
+                                  <p className="font-semibold text-black">
+                                    ₹{discountPrice.toFixed(2)}
+                                  </p>
+
+                                  {discount > 0 && (
+                                    <>
+                                      <p className="text-sm text-gray-500 line-through">
+                                        ₹{originalPrice.toFixed(2)}
+                                      </p>
+
+                                      <span className="text-sm font-bold text-red-500">
+                                        {discount}% OFF
+                                      </span>
+                                    </>
+                                  )}
+                                </div>
+                              </div>
+                            </div>
+                          </Link>
+                        );
+                      })}
+                      {/* {items.map((item, index) => (
                         <Link
                           to={`/products/${item.productId}`}
                           className="block hover:bg-gray-50 transition rounded-md"
@@ -169,7 +229,7 @@ const Orders = () => {
                             </div>
                           </div>
                         </Link>
-                      ))}
+                      ))} */}
                     </div>
                   </div>
                 </div>

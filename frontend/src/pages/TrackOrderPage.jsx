@@ -254,6 +254,58 @@ const TrackOrderPage = () => {
             {items.map((item, index) => {
               const productId = getProductId(item);
 
+              const originalPrice = Number(item.price || 0);
+              const discount = Number(item.discount || 0);
+
+              const discountPrice =
+                originalPrice - (originalPrice * discount) / 100;
+
+              return (
+                <Link
+                  to={`/products/${productId}`}
+                  key={`${order._id}-${productId}-${index}`}
+                  className="flex gap-4 rounded-md transition hover:bg-gray-50"
+                >
+                  <img
+                    src={item.image || "/images/placeholder.png"}
+                    alt={item.name}
+                    className="h-40 w-32 object-cover sm:h-48 sm:w-40"
+                  />
+
+                  <div className="flex flex-col gap-2">
+                    <h3 className="text-lg font-medium">{item.name}</h3>
+
+                    {item.size && (
+                      <p className="text-gray-500">Size: {item.size}</p>
+                    )}
+
+                    <p className="text-gray-500">Quantity: {item.quantity}</p>
+
+                    <div className="flex items-center gap-2 flex-wrap">
+                      <p className="font-semibold text-black">
+                        ₹ {discountPrice.toFixed(2)}
+                      </p>
+
+                      {discount > 0 && (
+                        <>
+                          <p className="text-sm text-gray-500 line-through">
+                            ₹ {originalPrice.toFixed(2)}
+                          </p>
+
+                          <span className="text-sm font-bold text-red-500">
+                            {discount}% OFF
+                          </span>
+                        </>
+                      )}
+                    </div>
+                  </div>
+                </Link>
+              );
+            })}
+
+            {/* {items.map((item, index) => {
+              const productId = getProductId(item);
+
               return (
                 <Link
                   to={`/products/${productId}`}
@@ -281,7 +333,7 @@ const TrackOrderPage = () => {
                   </div>
                 </Link>
               );
-            })}
+            })} */}
           </div>
         </div>
       </div>

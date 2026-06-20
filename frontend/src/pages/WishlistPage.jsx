@@ -11,6 +11,7 @@ const WishlistPage = () => {
     wishlistItems,
     addToWishlist,
     userDataLoading,
+    products
   } = useAppContext();
 
 
@@ -40,7 +41,73 @@ const WishlistPage = () => {
           </div>
         ) : (
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-            {wishlist.map((item) => (
+            {wishlist.map((item) => {
+              const latestProduct = products.find(
+                (product) => product._id === item._id,
+              );
+
+              const originalPrice = Number(
+                latestProduct?.price || item.price || 0,
+              );
+              const discount = Number(
+                latestProduct?.discount || item.discount || 0,
+              );
+
+              const discountPrice =
+                originalPrice - (originalPrice * discount) / 100;
+
+              return (
+                <div key={item._id} className="border p-3 rounded-lg">
+                  <div className="relative">
+                    <button
+                      type="button"
+                      onClick={(e) => removeFromWishlist(e, item)}
+                      className="absolute top-3 right-3 z-20 p-2 bg-red-500 text-white hover:bg-red-600 rounded-full shadow-md cursor-pointer"
+                    >
+                      <Trash2 size={20} />
+                    </button>
+
+                    <Link to={`/products/${item._id}`}>
+                      <img
+                        src={
+                          Array.isArray(item.image)
+                            ? item.image[0]
+                            : item.images?.[0] ||
+                            item.image1 ||
+                            "/images/placeholder.png"
+                        }
+                        alt={item.name}
+                        className="w-full h-40 sm:h-100 object-cover"
+                      />
+
+                      <h3 className="mt-2 text-[10px] sm:text-sm font-medium">
+                        {item.name}
+                      </h3>
+
+                      <div className="mt-1 flex items-center gap-2 flex-wrap">
+                        <p className="font-semibold text-black">
+                          ₹{discountPrice.toFixed(2)}
+                        </p>
+
+                        {discount > 0 && (
+                          <>
+                            <p className="text-sm text-gray-500 line-through">
+                              ₹{originalPrice.toFixed(2)}
+                            </p>
+
+                            <span className="text-sm font-bold text-red-500">
+                              {discount}% OFF
+                            </span>
+                          </>
+                        )}
+                      </div>
+                    </Link>
+                  </div>
+                </div>
+              );
+            })}
+
+            {/* {wishlist.map((item) => (
               <div key={item._id} className="border p-3 rounded-lg">
                 <div className="relative">
                   <button
@@ -75,7 +142,7 @@ const WishlistPage = () => {
                     </p>
                   </Link>
 
-                  {/* <Link to={`/products/${item._id}`}>
+                  <Link to={`/products/${item._id}`}>
                     <img
                       src={
                         Array.isArray(item.image)
@@ -95,10 +162,10 @@ const WishlistPage = () => {
                     <p className="font-semibold">
                       ₹{Number(item.price || 0).toFixed(2)}
                     </p>
-                  </Link> */}
+                  </Link>
                 </div>
               </div>
-            ))}
+            ))} */}
           </div>
         )}
       </div>

@@ -15,7 +15,7 @@ import Address from "../components/Address";
 import Loading from "../components/Loading";
 
 const Checkout = () => {
-  const { subTotal, cartItems, clearCart } = useAppContext();
+  const { subTotal, cartItems, clearCart, products } = useAppContext();
 
   const [paymentMethod, setPaymentMethod] = useState("cod");
   const [buttonLoading, setButtonLoading] = useState(false);
@@ -43,14 +43,43 @@ const Checkout = () => {
     }
 
     const orderData = {
-      items: cartItems.map((item) => ({
-        productId: item._id,
-        name: item.name,
-        price: item.price,
-        quantity: item.quantity,
-        size: item.size,
-        image: Array.isArray(item.image) ? item.image[0] : item.image,
-      })),
+      items: cartItems.map((item) => {
+        const itemProductId =
+          typeof item.productId === "object"
+            ? item.productId?._id
+            : item.productId;
+
+        const latestProduct = products.find(
+          (product) =>
+            product._id === item._id || product._id === itemProductId,
+        );
+
+        const price = Number(latestProduct?.price || item.price || 0);
+        const discount = Number(latestProduct?.discount || item.discount || 0);
+
+        return {
+          productId: item._id || itemProductId,
+          name: latestProduct?.name || item.name,
+          price,
+          discount,
+          quantity: item.quantity,
+          size: item.size,
+          image: Array.isArray(latestProduct?.image)
+            ? latestProduct.image[0]
+            : Array.isArray(item.image)
+              ? item.image[0]
+              : item.image,
+        };
+      }),
+
+      // items: cartItems.map((item) => ({
+      //   productId: item._id,
+      //   name: item.name,
+      //   price: item.price,
+      //   quantity: item.quantity,
+      //   size: item.size,
+      //   image: Array.isArray(item.image) ? item.image[0] : item.image,
+      // })),
 
       address: formData,
       paymentMethod,
