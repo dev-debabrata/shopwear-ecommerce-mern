@@ -49,7 +49,18 @@ const CartPage = () => {
                 (product) => product._id === item._id,
               );
 
-              const currentPrice = latestProduct?.price || item.price || 0;
+
+              const currentPrice = Number(
+                latestProduct?.price || item.price || 0,
+              );
+
+              const discount = Number(
+                latestProduct?.discount || item.discount || 0,
+              );
+
+              const finalPrice = currentPrice - (currentPrice * discount) / 100;
+
+              // const currentPrice = latestProduct?.price || item.price || 0;
               const currentName = latestProduct?.name || item.name || "Product";
 
               const imageUrl =
@@ -83,7 +94,26 @@ const CartPage = () => {
                       </p>
 
                       <div className="flex items-center mt-2 gap-5">
-                        <p>₹{Number(currentPrice).toFixed(2)}</p>
+
+                        <div className="flex items-center gap-2 flex-wrap">
+                          <p className="font-medium text-black">
+                            ₹{finalPrice.toFixed(2)}
+                          </p>
+
+                          {discount > 0 && (
+                            <>
+                              <p className="text-sm text-gray-500 line-through">
+                                ₹{currentPrice.toFixed(2)}
+                              </p>
+
+                              <span className="text-sm font-bold text-red-500">
+                                {discount}% OFF
+                              </span>
+                            </>
+                          )}
+                        </div>
+
+                        {/* <p>₹{Number(currentPrice).toFixed(2)}</p> */}
 
                         <p className="bg-slate-50 border border-gray-200 px-2 sm:px-3 sm:py-1">
                           {item.size}

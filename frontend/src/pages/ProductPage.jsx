@@ -35,6 +35,13 @@ const ProductPage = () => {
     enabled: !!_id,
   });
 
+
+  const originalPrice = Number(product?.price || 0);
+  const discountValue = Number(product?.discount || 0);
+
+  const discountPrice = originalPrice - (originalPrice * discountValue) / 100;
+
+
   const productImages = Array.isArray(product?.image)
     ? product.image
     : Array.isArray(product?.images)
@@ -167,7 +174,26 @@ const ProductPage = () => {
                   <p className="pl-2">122</p>
                 </div>
 
-                <p className="text-3xl font-medium mt-5">₹{product.price}</p>
+
+                <div className="mt-5 flex items-center gap-3 flex-wrap">
+                  <p className="text-3xl font-semibold text-black">
+                    ₹{discountPrice.toFixed(2)}
+                  </p>
+
+                  {discountValue > 0 && (
+                    <>
+                      <p className="text-2xl text-gray-500 line-through">
+                        ₹{originalPrice.toFixed(2)}
+                      </p>
+
+                      <span className=" text-red-500 text-2xl font-bold px-1 py-1 rounded-full">
+                        {discountValue}% OFF
+                      </span>
+                    </>
+                  )}
+                </div>
+
+                {/* <p className="text-3xl font-medium mt-5">₹{product.price}</p> */}
 
                 <div className="flex flex-col gap-4 my-8">
                   <p>Select Size</p>

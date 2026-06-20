@@ -69,18 +69,37 @@ export const AppProvider = ({ children }) => {
     setWishlistItems(userData?.wishlistItems || []);
   }, [user, userData]);
 
+
   const subTotal = useMemo(() => {
     return cartItems.reduce((acc, item) => {
       const latestProduct = products.find(
         (product) => product._id === item._id || product._id === item.productId,
       );
 
-      const price = Number(latestProduct?.price || item.price || 0);
+      const originalPrice = Number(latestProduct?.price || item.price || 0);
+
+      const discount = Number(latestProduct?.discount || item.discount || 0);
+
+      const finalPrice = originalPrice - (originalPrice * discount) / 100;
+
       const quantity = Number(item.quantity) || 1;
 
-      return acc + price * quantity;
+      return acc + finalPrice * quantity;
     }, 0);
   }, [cartItems, products]);
+
+  // const subTotal = useMemo(() => {
+  //   return cartItems.reduce((acc, item) => {
+  //     const latestProduct = products.find(
+  //       (product) => product._id === item._id || product._id === item.productId,
+  //     );
+
+  //     const price = Number(latestProduct?.price || item.price || 0);
+  //     const quantity = Number(item.quantity) || 1;
+
+  //     return acc + price * quantity;
+  //   }, 0);
+  // }, [cartItems, products]);
 
   const togglePassword = () => {
     setIsPasswordHidden((prev) => !prev);

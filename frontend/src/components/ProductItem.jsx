@@ -85,7 +85,7 @@ const ProductItem = ({
 
             {discountValue > 0 && (
               <>
-                <span className="text-base text-gray-400 line-through">
+                <span className="text-base text-gray-500 line-through">
                   {currency}
                   {originalPrice.toFixed(2)}
                 </span>
