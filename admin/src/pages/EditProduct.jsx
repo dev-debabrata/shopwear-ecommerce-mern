@@ -4,12 +4,15 @@ import axios from "axios";
 import { assets } from "../assets/assets";
 import { backendUrl } from "../App";
 import { toast } from "react-toastify";
+import Loading from "../components/Loading";
 
 const EditProduct = ({ token }) => {
   const { id } = useParams();
   const navigate = useNavigate();
 
   const [loading, setLoading] = useState(true);
+  const [updating, setUpdating] = useState(false);
+
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
@@ -65,6 +68,8 @@ const EditProduct = ({ token }) => {
     e.preventDefault();
 
     try {
+      setUpdating(true);
+
       const formData = new FormData();
 
       image1 && formData.append("image1", image1);
@@ -92,16 +97,21 @@ const EditProduct = ({ token }) => {
       );
 
       toast.success(data.message || "Product updated successfully");
+      setUpdating(false);
       navigate("/list");
+
     } catch (error) {
       console.error(error);
       toast.error(error.response?.data?.message || "Failed to update product");
+      setUpdating(false);
     }
   };
 
   if (loading) {
     return (
-      <p className="text-center py-10 text-gray-500">Loading product...</p>
+      <div className="text-center py-30 text-gray-500">
+        <Loading text="Loading product..." />
+      </div>
     );
   }
 
@@ -292,14 +302,15 @@ const EditProduct = ({ token }) => {
         <div className="flex gap-3">
           <button
             type="submit"
-            className="uppercase bg-black text-white px-3 py-3 rounded"
+            disabled={updating}
+            className="uppercase bg-black text-white px-3 py-3 rounded hover:bg-gray-800 cursor-pointer disabled:cursor-not-allowed disabled:opacity-70"
           >
-            Update Product
+            {updating ? "Updating..." : "Update Product"}
           </button>
           <button
             type="button"
             onClick={() => navigate("/list")}
-            className="uppercase border border-gray-400 px-3 py-3 rounded"
+            className="uppercase border border-gray-400 px-3 py-3 rounded hover:bg-gray-200 cursor-pointer"
           >
             Cancel
           </button>

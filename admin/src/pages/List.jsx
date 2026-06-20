@@ -5,6 +5,7 @@ import { toast } from "react-toastify";
 import { SquarePen, Trash2 } from "lucide-react";
 
 import { backendUrl, currency } from "../App";
+import Loading from "../components/Loading";
 
 const List = ({ token }) => {
   const [list, setList] = useState([]);
@@ -80,8 +81,8 @@ const List = ({ token }) => {
           <tbody>
             {loading ? (
               <tr>
-                <td colSpan="7" className="py-8 text-center text-gray-500">
-                  Loading products...
+                <td colSpan="7" className="py-20 text-center text-gray-500">
+                  <Loading text="Loading products..." />
                 </td>
               </tr>
             ) : list.length > 0 ? (
@@ -143,7 +144,7 @@ const List = ({ token }) => {
               ))
             ) : (
               <tr>
-                <td colSpan="6" className="py-8 text-center text-gray-500">
+                <td colSpan="7" className="py-8 text-center text-gray-500">
                   No products available
                 </td>
               </tr>

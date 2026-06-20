@@ -5,6 +5,8 @@ import { backendUrl } from "../App";
 import { toast } from "react-toastify";
 
 const Add = ({ token }) => {
+  const [loading, setLoading] = useState(false);
+
   const [image1, setImage1] = useState(false);
   const [image2, setImage2] = useState(false);
   const [image3, setImage3] = useState(false);
@@ -23,6 +25,8 @@ const Add = ({ token }) => {
     e.preventDefault();
 
     try {
+      setLoading(true);
+
       const formData = new FormData();
 
       image1 && formData.append("image1", image1);
@@ -63,9 +67,12 @@ const Add = ({ token }) => {
       setImage2(false);
       setImage3(false);
       setImage4(false);
+
+      setLoading(false);
     } catch (error) {
       console.log(error);
       toast.error(error.response?.data?.message || "Failed to add product");
+      setLoading(false);
     }
   };
 
@@ -310,9 +317,10 @@ const Add = ({ token }) => {
 
         <button
           type="submit"
-          className="uppercase bg-gray-900 hover:bg-gray-800 text-white px-8 py-3 rounded-md cursor-pointer"
+          disabled={loading}
+          className="uppercase bg-gray-900 hover:bg-gray-800 text-white px-8 py-3 rounded-md cursor-pointer  disabled:opacity-60 disabled:cursor-not-allowed"
         >
-          Add Product
+          {loading ? "Adding..." : "Add Product"}
         </button>
       </form>
     </main>
