@@ -39,9 +39,14 @@ const LatestCollections = () => {
           <p className="text-center text-gray-500">No products found.</p>
         </div>
       ) : (
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 gap-y-6">
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 gap-y-8">
           {latestProducts.map((product) => (
-            <ProductItem key={product._id} {...product} />
+            // <ProductItem key={product._id} {...product} />
+            <ProductItem
+              key={product._id}
+              {...product}
+              showDetails={false}
+            />
           ))}
         </div>
       )}

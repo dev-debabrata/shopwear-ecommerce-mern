@@ -9,12 +9,21 @@ const ProductItem = ({
   image1,
   name,
   price,
+  discount = 0,
   showWishlist = false,
   onWishlist,
   isWishlisted,
+  showDetails = true,
 }) => {
   // const { currency = "₹" } = useAppContext();
   const { currency } = useAppContext();
+
+
+  const originalPrice = Number(price || 0);
+  const discountValue = Number(discount || 0);
+
+  const discountPrice = originalPrice - (originalPrice * discountValue) / 100;
+
 
   // const productImage = images?.[0] || image?.[0] || image || image1;
   const productImage =
@@ -64,12 +73,59 @@ const ProductItem = ({
         /> */}
       </div>
 
-      <p className="pt-3 pb-1 text-sm">{name}</p>
+      {showDetails && (
+        <>
+          <p className="pt-3 pb-1 text-sm">{name}</p>
 
-      <p className="text-sm font-medium">
+          <div className="flex items-center gap-2">
+            <span className="text-lg font-medium text-black">
+              {currency}
+              {discountPrice.toFixed(2)}
+            </span>
+
+            {discountValue > 0 && (
+              <>
+                <span className="text-base text-gray-400 line-through">
+                  {currency}
+                  {originalPrice.toFixed(2)}
+                </span>
+
+                <span className="text-base font-bold text-red-500">
+                  -{discountValue}%
+                </span>
+              </>
+            )}
+          </div>
+        </>
+      )}
+
+      {/* <p className="pt-3 pb-1 text-sm">{name}</p>
+
+
+      <div className="flex items-center gap-2">
+        <span className="text-lg font-medium text-black">
+          {currency}
+          {discountPrice.toFixed(2)}
+        </span>
+
+        {discountValue > 0 && (
+          <>
+            <span className="text-base text-gray-400 line-through">
+              {currency}
+              {originalPrice.toFixed(2)}
+            </span>
+
+            <span className="text-base font-bold text-red-500">
+              -{discountValue}%
+            </span>
+          </>
+        )}
+      </div> */}
+
+      {/* <p className="text-sm font-medium">
         {currency}
         {Number(price || 0).toFixed(2)}
-      </p>
+      </p> */}
     </Link>
   );
 };
