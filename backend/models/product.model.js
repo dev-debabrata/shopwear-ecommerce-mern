@@ -18,6 +18,13 @@ const productSchema = new mongoose.Schema(
       required: true,
     },
 
+    discount: {
+      type: Number,
+      default: 0,
+      min: 0,
+      max: 100,
+    },
+
     image: {
       type: [String],
       required: true,
@@ -45,5 +52,9 @@ const productSchema = new mongoose.Schema(
   },
   { timestamps: true },
 );
+
+productSchema.virtual("finalPrice").get(function () {
+  return this.price - (this.price * this.discount) / 100;
+});
 
 export const Product = mongoose.model("Product", productSchema);
