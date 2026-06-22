@@ -17,7 +17,7 @@ To develop a modern and scalable e-commerce platform that enables customers to b
 
 ## 📸 Screenshots
 
-### Login Page & SignUp Page
+### Login Page, SignUp Page & Forgot Password Page
 
 <p align="center">
   <img src="./frontend/public/readme-img/login.png" alt="Login Page" width="45%" />
@@ -25,18 +25,22 @@ To develop a modern and scalable e-commerce platform that enables customers to b
   <img src="./frontend/public/readme-img/forgotPassword.png" alt="Forgot Password Page" width="45%" />
 </p>
 
-### Home Page & Collections Page
+### Home Page, Collections Page, About Page & Contact Page
 
 <p align="center">
   <img src="./frontend/public/readme-img/home.png" alt="Home Page" width="45%" />
   <img src="./frontend/public/readme-img/collection.png" alt="Collection Page" width="45%" />
+   <img src="./frontend/public/readme-img/about.png" alt="About Page" width="45%" />
+  <img src="./frontend/public/readme-img/contact.png" alt="Contact Page" width="45%" />
 </p>
 
-### Product Details & Shopping Cart
+### Product Details Page, Wishlist Page, Shopping Cart Page & Chekout Page
 
 <p align="center">
   <img src="./frontend/public/readme-img/product.png" alt="Product Details" width="45%" />
+    <img src="./frontend/public/readme-img/wishlist.png" alt="Wishlist" width="45%" />
   <img src="./frontend/public/readme-img/cart.png" alt="Shopping Cart" width="45%" />
+  <img src="./frontend/public/readme-img/checkout.png" alt="Checkout" width="45%" />
 </p>
 
 ### Admin Dashboard
